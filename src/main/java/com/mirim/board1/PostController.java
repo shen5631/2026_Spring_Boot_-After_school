@@ -11,7 +11,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/posts")
 public class PostController {
-    private SmsNotfier notifier = new SmsNotfier();
+    private final Notifier notifier;
+    public PostController(Notifier notifier){
+        this.notifier = notifier;
+    }
+
 
     //특정게시물 불러오기
     //읽는 방법
