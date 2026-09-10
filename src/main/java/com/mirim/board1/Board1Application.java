@@ -14,18 +14,12 @@ public class Board1Application {
         //3. 내장 통캣을 띄운다. 그에 맞는 포트(8080)가 열린다.
         //4. 요청을 받아서 요청이 오면 알맞는 코드로 넘겨준다.
         ApplicationContext context = SpringApplication.run(Board1Application.class, args);
-        Notifier notifier= context.getBean(Notifier.class);
-        notifier.send("컨테이너에서 직접 꺼낸 테스트 메시지입니다.");
+        Notifier notifier1= context.getBean(Notifier.class);
+        Notifier notifier2= context.getBean(Notifier.class);
 
-        try{
-            context.getBean(SmsNotifier.class);
-        } catch (NoSuchBeanDefinitionException e) {
-            System.out.println("EmailNotifier는 컨테이너에 없음 : "+e.getMessage());
-        }
-
-        System.out.println("등록돈 Bean 개수 : "+context.getBeanDefinitionNames().length);
-        System.out.println("emailNotifer 등록 여부 "+context.containsBean("emailNotifier"));
-        System.out.println("smsNotifer 등록 여부 "+context.containsBean("smsNotifier"));
+        Notifier direct1 = new EmailNotifier();
+        Notifier direct2 = new EmailNotifier();
+        System.out.println("같은 객체인가? : "+(direct1==direct2));
     }
 
 }
