@@ -1,5 +1,6 @@
 package com.mirim.board1;
 
+import com.mirim.board1.repository.PostRepository;
 import com.mirim.board1.service.PostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -14,9 +15,11 @@ import java.util.Map;
 @RequestMapping("/posts")
 public class PostController {
     private final PostService postService;
+    private final PostRepository postRepository;
 
-    public PostController(PostService postService){
+    public PostController(PostService postService, PostRepository postRepository){
         this.postService = postService;
+        this.postRepository = postRepository;
     }
 
 

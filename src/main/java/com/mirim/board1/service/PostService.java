@@ -23,20 +23,14 @@ public class PostService {
     }
 
     public Map<String,Object> getPost(Long id){
-        if(!postRepository.existsById(id)){
-            return null;
-        }
-        Map<String,Object> post = new HashMap<>();
-        post.put("id",id);
-        post.put("title","게시글 제목");
-        post.put("content","게시글내용");
-
-        return post;
+        return postRepository.findById(id);
     }
     public Map<String,Object> createPost(String title, String content){
+
         Map<String, Object> post = new HashMap<>();
         post.put("title",title);
         post.put("content",content);
+        Map<String, Object> savePost = postRepository.save(post);
         post.put("message","게시글이 등록되었습니다.");
 
         //이메일 발송
@@ -45,21 +39,20 @@ public class PostService {
         return post;
     }
     public Map<String,Object> updatePost(String title, String content, Long id){
-        if(!postRepository.existsById(id)){
+        Map<String, Object> post =  postRepository.findById(id);
+
+
+        if(post == null){
             return null;
         }
-        Map<String, Object> post = new HashMap<>();
-        post.put("id",id);
+
         post.put("title",title);
         post.put("content",content);
-        post.put("message","게시글이 등록되었습니다.!!");
         return post;
     }
+
     public boolean deletePost(Long id){
-        if(!postRepository.existsById(id)){
-            return false;
-        }
-        return true;
+        return postRepository.deleteById(id);
     }
 
     public List<Map<String,Object>> getAllPosts(){
