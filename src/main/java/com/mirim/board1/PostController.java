@@ -30,11 +30,11 @@ public class PostController {
     @GetMapping()
     public ResponseEntity<?> getPosts(@RequestParam(required = false) String keyword){
         if(keyword != null){
-            List<Map<String,Object>> posts =  postService.searchPosts(keyword);
+            List<Post> posts =  postService.searchPosts(keyword);
             return ResponseEntity.ok(posts);
         }
 
-        List<Map<String,Object>> posts = postService.getAllPosts();
+        List<Post> posts = postService.getAllPosts();
         return ResponseEntity.ok(posts);
 
     }
@@ -51,7 +51,7 @@ public class PostController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("번호를 다시 한번 확인해주세요");
         }
         //200
-        Map<String, Object> post = postService.getPost(id);
+        Post post = postService.getPost(id);
         if(post == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("존자하지않는 게시물");
         }
@@ -65,7 +65,7 @@ public class PostController {
         String content = (String)request.get("content");
         Long user_id = (Long)request.get("user_id");
 
-        Map<String,Object> response = postService.createPost(title,content);
+        Post response = postService.createPost(title,content);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
          //return "["+title+"] 게시글이 등록되었습니다. 내용 : "+content;
@@ -76,7 +76,7 @@ public class PostController {
 
         String title = (String)request.get("title");
         String content = (String)request.get("content");
-        Map<String,Object> response = postService.updatePost(title,content,id);
+        Post response = postService.updatePost(title,content,id);
 
         if(response == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("번호를 다시 한번 확인해주세요");

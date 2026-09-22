@@ -1,0 +1,20 @@
+2026-09-22 18:30:35.253183+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "POSTS" not found (this database is empty); SQL statement:
+SELECT * FROM posts [42104-240]
+2026-09-22 18:30:41.390943+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "POSTS" not found (this database is empty); SQL statement:
+SELECT * FROM posts [42104-240]
+2026-09-22 18:40:58.427380+09:00 jdbc[15]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "create table posts (\000d\000aid bigint [*]auto_imcrement primary key,\000d\000atitle varchar(200) not null ,\000d\000acontent text\000d\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+create table posts (
+id bigint auto_imcrement primary key,
+title varchar(200) not null ,
+content text
+) [42001-240]
+2026-09-22 18:46:06.414596+09:00 jdbc[15]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "POSTS" already exists; SQL statement:
+create table posts (
+id bigint auto_increment primary key,
+title varchar(200) not null ,
+content text
+) [42101-240]
