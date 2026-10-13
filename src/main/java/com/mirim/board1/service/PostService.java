@@ -2,9 +2,11 @@ package com.mirim.board1.service;
 
 import com.mirim.board1.Notifier;
 import com.mirim.board1.Post;
+import com.mirim.board1.dto.PostResponse;
 import com.mirim.board1.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,19 +25,23 @@ public class PostService {
         this.notifier = notifier;
     }
 
-    public Post getPost(Long id){
-        return postRepository.findById(id).orElse(null);
+    public PostResponse getPost(Long id){
+        Post post = postRepository.findById(id).orElse(null);
+        if(post == null){
+            return null;
+        }
+        return PostResponse.from(post);
     }
-    public Post createPost(String title, String content){
+    public PostResponse createPost(String title, String content){
         Post post = new Post(title,content);
         postRepository.save(post);
 
         //이메일 발송
         notifier.send(title+" 게시글이 등록되었습니다.");
 
-        return post;
+        return PostResponse.from(post);
     }
-    public Post updatePost(String title, String content, Long id){
+    public PostResponse updatePost(String title, String content, Long id){
         Post post =  postRepository.findById(id).orElse(null);
 
 
@@ -47,7 +53,7 @@ public class PostService {
         post.setContent(content);
         postRepository.save(post);
 
-        return post;
+        return PostResponse.from(post);
     }
 
     public boolean deletePost(Long id){
@@ -61,15 +67,23 @@ public class PostService {
         return true;
     }
 
-    public List<Post> getAllPosts(){
-        return postRepository.findAll();
+    public List<PostResponse> getAllPosts(){
+        return toResponses(postRepository.findAll());
     }
 
     public long getPostCount(){
         return postRepository.count();
     }
 
-    public List<Post> searchPosts(String keyword){
-        return postRepository.findByTitleContaining(keyword);
+    public List<PostResponse> searchPosts(String keyword){
+        return toResponses(postRepository.findByTitleContaining(keyword));
+    }
+
+    private List<PostResponse> toResponses(List<Post> posts){
+        List<PostResponse> responses = new ArrayList<>();
+        for(Post post : posts){
+            responses.add(PostResponse.from(post));
+        }
+        return responses;
     }
 }

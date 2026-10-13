@@ -8,6 +8,12 @@
     public interface PostRepository extends JpaRepository<Post,Long> {
 
         //오타 주의
+        //select * from posts where title = ''
+        //List<Post> findByTitle(String keyword);
+        //select * from posts where title like '%%'
+        //findBy = select
+        //Title = from posts
+        //Containing = where title
         List<Post> findByTitleContaining(String keyword);
     }
 

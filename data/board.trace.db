@@ -18,3 +18,19 @@ id bigint auto_increment primary key,
 title varchar(200) not null ,
 content text
 ) [42101-240]
+2026-10-13 18:48:40.066879+09:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "alter table posts add column created_at timestamp default current_timestamp not null\000d\000a[*]alter table posts add column view_count bigint default 0 not null"; SQL statement:
+alter table posts add column created_at timestamp default current_timestamp not null
+alter table posts add column view_count bigint default 0 not null [42000-240]
+2026-10-13 18:49:20.346850+09:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "alter table posts add column created_at timestamp default current_timestamp not null\000d\000a[*]alter table posts add column view_count bigint default 0 not null"; SQL statement:
+alter table posts add column created_at timestamp default current_timestamp not null
+alter table posts add column view_count bigint default 0 not null [42000-240]
+2026-10-13 18:49:32.432157+09:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "alter table posts add column created_at timestamp default current_timestamp not null\000d\000a[*]alter table posts add column view_count bigint default 0 not null"; SQL statement:
+alter table posts add column created_at timestamp default current_timestamp not null
+alter table posts add column view_count bigint default 0 not null [42000-240]
+2026-10-13 18:49:34.420523+09:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "alter table posts add column created_at timestamp default current_timestamp not null\000d\000a[*]alter table posts add column view_count bigint default 0 not null"; SQL statement:
+alter table posts add column created_at timestamp default current_timestamp not null
+alter table posts add column view_count bigint default 0 not null [42000-240]

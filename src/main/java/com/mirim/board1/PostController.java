@@ -1,5 +1,7 @@
 package com.mirim.board1;
 
+import com.mirim.board1.dto.PostRequest;
+import com.mirim.board1.dto.PostResponse;
 import com.mirim.board1.repository.PostRepository;
 import com.mirim.board1.service.PostService;
 import org.springframework.http.HttpStatus;
@@ -30,11 +32,11 @@ public class PostController {
     @GetMapping()
     public ResponseEntity<?> getPosts(@RequestParam(required = false) String keyword){
         if(keyword != null){
-            List<Post> posts =  postService.searchPosts(keyword);
+            List<PostResponse> posts =  postService.searchPosts(keyword);
             return ResponseEntity.ok(posts);
         }
 
-        List<Post> posts = postService.getAllPosts();
+        List<PostResponse> posts = postService.getAllPosts();
         return ResponseEntity.ok(posts);
 
     }
@@ -51,7 +53,7 @@ public class PostController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("번호를 다시 한번 확인해주세요");
         }
         //200
-        Post post = postService.getPost(id);
+        PostResponse post = postService.getPost(id);
         if(post == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("존자하지않는 게시물");
         }
@@ -60,23 +62,23 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createPost(@RequestBody Map<String,Object> request){
-        String title = (String)request.get("title");
-        String content = (String)request.get("content");
-        Long user_id = (Long)request.get("user_id");
+    public ResponseEntity<?> createPost(@RequestBody PostRequest request){
+        String title = request.getTitle();
+        String content = request.getContent();
+        //Long user_id = request.getClass();
 
-        Post response = postService.createPost(title,content);
+        PostResponse response = postService.createPost(title,content);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
          //return "["+title+"] 게시글이 등록되었습니다. 내용 : "+content;
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updatePost(@PathVariable Long id, @RequestBody Map<String,Object> request){
+    public ResponseEntity<?> updatePost(@PathVariable Long id, @RequestBody PostRequest request){
 
-        String title = (String)request.get("title");
-        String content = (String)request.get("content");
-        Post response = postService.updatePost(title,content,id);
+        String title = request.getTitle();
+        String content = request.getContent();
+        PostResponse response = postService.updatePost(title,content,id);
 
         if(response == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("번호를 다시 한번 확인해주세요");
