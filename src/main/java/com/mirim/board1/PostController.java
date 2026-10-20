@@ -4,6 +4,7 @@ import com.mirim.board1.dto.PostRequest;
 import com.mirim.board1.dto.PostResponse;
 import com.mirim.board1.repository.PostRepository;
 import com.mirim.board1.service.PostService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -54,15 +55,12 @@ public class PostController {
         }
         //200
         PostResponse post = postService.getPost(id);
-        if(post == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("존자하지않는 게시물");
-        }
 
         return ResponseEntity.ok(post);
     }
 
     @PostMapping
-    public ResponseEntity<?> createPost(@RequestBody PostRequest request){
+    public ResponseEntity<?> createPost(@Valid @RequestBody PostRequest request){
         String title = request.getTitle();
         String content = request.getContent();
         //Long user_id = request.getClass();
@@ -74,15 +72,12 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updatePost(@PathVariable Long id, @RequestBody PostRequest request){
+    public ResponseEntity<?> updatePost(@PathVariable Long id, @Valid@RequestBody PostRequest request){
 
         String title = request.getTitle();
         String content = request.getContent();
         PostResponse response = postService.updatePost(title,content,id);
 
-        if(response == null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("번호를 다시 한번 확인해주세요");
-        }
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
         //return "["+title+"] 게시글이 등록되었습니다. 내용 : "+content;
