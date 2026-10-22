@@ -2,6 +2,7 @@ package com.mirim.board1;
 
 import com.mirim.board1.dto.PostRequest;
 import com.mirim.board1.dto.PostResponse;
+import com.mirim.board1.login.SessionConst;
 import com.mirim.board1.repository.PostRepository;
 import com.mirim.board1.service.PostService;
 import jakarta.validation.Valid;
@@ -60,12 +61,12 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createPost(@Valid @RequestBody PostRequest request){
+    public ResponseEntity<?> createPost(@Valid @RequestBody PostRequest request, @SessionAttribute(name =SessionConst.LOGIN_MEMBER_ID) Long loginMemberId){
         String title = request.getTitle();
         String content = request.getContent();
         //Long user_id = request.getClass();
 
-        PostResponse response = postService.createPost(title,content);
+        PostResponse response = postService.createPost(title,content, loginMemberId);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
          //return "["+title+"] 게시글이 등록되었습니다. 내용 : "+content;

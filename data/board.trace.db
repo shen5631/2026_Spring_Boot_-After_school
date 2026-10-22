@@ -229,3 +229,31 @@ org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:483)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:74)
 	at java.base/java.lang.Thread.run(Thread.java:842)
+2026-10-22 19:41:30.742646+09:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "create table comments{\000d\000aid bigint auto_increment primary key,\000d\000acontent varchar(500) not null,\000d\000apost_id bigint not null,\000d\000aauthor_id bigint not null,\000d\000acreated_at timestamp default crrent_timestamp not null,\000d\000aforeign key (post_id) references post(id),\000d\000aforeign key (author_id) references members(id[*])" [42000-240]
+2026-10-22 19:41:37.102944+09:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "create table comments{\000d\000aid bigint auto_increment primary key,\000d\000acontent varchar(500) not null,\000d\000apost_id bigint not null,\000d\000aauthor_id bigint not null,\000d\000acreated_at timestamp default crrent_timestamp not null,\000d\000aforeign key (post_id) references post(id),\000d\000aforeign key (author_id) references members(id)\000d\000a[*])" [42000-240]
+2026-10-22 19:41:38.239474+09:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "create table comments{\000d\000aid bigint auto_increment primary key,\000d\000acontent varchar(500) not null,\000d\000apost_id bigint not null,\000d\000aauthor_id bigint not null,\000d\000acreated_at timestamp default crrent_timestamp not null,\000d\000aforeign key (post_id) references post(id),\000d\000aforeign key (author_id) references members(id)\000d\000a[*])" [42000-240]
+2026-10-22 19:42:04.652088+09:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "POST" not found; SQL statement:
+create table comments (
+    id bigint auto_increment primary key,
+    content varchar(500) not null,
+    post_id bigint not null,
+    author_id bigint not null,
+    created_at timestamp default current_timestamp not null,
+    foreign key (post_id) references post(id),
+    foreign key (author_id) references members(id)
+) [42102-240]
+2026-10-22 19:42:05.746357+09:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "POST" not found; SQL statement:
+create table comments (
+    id bigint auto_increment primary key,
+    content varchar(500) not null,
+    post_id bigint not null,
+    author_id bigint not null,
+    created_at timestamp default current_timestamp not null,
+    foreign key (post_id) references post(id),
+    foreign key (author_id) references members(id)
+) [42102-240]
