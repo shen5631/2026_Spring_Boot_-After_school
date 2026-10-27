@@ -1,4 +1,4 @@
-package com.mirim.board1;
+package com.mirim.board1.controller;
 
 import com.mirim.board1.dto.ApiErrorResponse;
 import com.mirim.board1.dto.LoginRequest;

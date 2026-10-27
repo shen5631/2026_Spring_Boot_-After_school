@@ -17,6 +17,22 @@ public class CommentResopnse {
     private final AuthorResponse author;
     private final LocalDateTime createdAt;
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public AuthorResponse getAuthor() {
+        return author;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
     public static CommentResopnse from(Comment comment){
         return new CommentResopnse(
                 comment.getId(),

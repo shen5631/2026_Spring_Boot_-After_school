@@ -1,4 +1,4 @@
-package com.mirim.board1;
+package com.mirim.board1.controller;
 
 import com.mirim.board1.dto.PostRequest;
 import com.mirim.board1.dto.PostResponse;
@@ -7,13 +7,10 @@ import com.mirim.board1.repository.PostRepository;
 import com.mirim.board1.service.PostService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/posts")
@@ -85,18 +82,10 @@ public class PostController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletePost(@PathVariable Long id){
-        if(id <= 0){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("다시 입력해주세요");
-        }
-
-        boolean deleted = postService.deletePost(id);
-        if(deleted){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("존재하지 않습니다.");
-        }
-
-
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    public ResponseEntity<Void> deletePost(@PathVariable Long id,
+                                           @SessionAttribute(name = SessionConst.LOGIN_MEMBER_ID) Long loginMemberId) {
+        postService.deletePost(id, loginMemberId);
+        return ResponseEntity.noContent().build();
     }
 
 }

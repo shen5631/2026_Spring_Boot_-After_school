@@ -24,11 +24,11 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(String content, Post post, Member author, LocalDateTime createdAt) {
+    public Comment(String content, Post post, Member author) {
         this.content = content;
         this.post = post;
         this.author = author;
-        this.createdAt = createdAt;
+        this.createdAt = LocalDateTime.now();
     }
 
     public Long getId() {
