@@ -5,10 +5,12 @@ import com.mirim.board1.Notifier;
 import com.mirim.board1.Post;
 import com.mirim.board1.dto.PostResponse;
 import com.mirim.board1.exception.ApiException;
+import com.mirim.board1.repository.CommentRepository;
 import com.mirim.board1.repository.MemberRepository;
 import com.mirim.board1.repository.PostRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,12 +24,14 @@ public class PostService {
     private final PostRepository postRepository;
     private final Notifier notifier;
     private final MemberService memberService;
+    private final CommentRepository commentRepository;
 
-    public PostService(PostRepository postRepository, Notifier notifier, MemberService memberService,MemberRepository memberRepository){
+    public PostService(PostRepository postRepository, Notifier notifier, MemberService memberService,MemberRepository memberRepository,CommentRepository commentRepository){
         this.postRepository = postRepository;
         this.notifier = notifier;
         this.memberRepository = memberRepository;
         this.memberService = memberService;
+        this.commentRepository = commentRepository;
     }
 
     public PostResponse getPost(Long id){
@@ -65,6 +69,7 @@ public class PostService {
         return PostResponse.from(post);
     }
 
+    @Transactional
     public void deletePost(Long id, Long loginMemberId) {
         Post post = postRepository.findById(id).orElse(null);
         if (post == null) {
@@ -73,11 +78,12 @@ public class PostService {
         if (!post.getAuthor().getId().equals(loginMemberId)) {
             throw new ApiException(HttpStatus.FORBIDDEN, "본인이 작성한 게시글만 삭제할 수 있습니다.");
         }
+        commentRepository.deleteAll(commentRepository.findByPostId(id));
         postRepository.delete(post);
     }
 
     public List<PostResponse> getAllPosts(){
-        return toResponses(postRepository.findAllWithAuthor());
+            return toResponses(postRepository.findAllWithAuthor());
     }
 
     public long getPostCount(){
