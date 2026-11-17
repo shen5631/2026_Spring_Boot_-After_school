@@ -1,6 +1,8 @@
     package com.mirim.board1.repository;
 
     import com.mirim.board1.Post;
+    import org.springframework.data.domain.Page;
+    import org.springframework.data.domain.Pageable;
     import org.springframework.data.jpa.repository.JpaRepository;
     import org.springframework.data.jpa.repository.Query;
 
@@ -17,7 +19,7 @@
         //Containing = where title
         List<Post> findByTitleContaining(String keyword);
 
-        @Query("select p from Post p join fetch p.author")
-        List<Post> findAllWithAuthor();
+        @Query(value = "select p from Post p join fetch p.author", countQuery = "select count(p) from Post p")
+        Page<Post> findAllWithAuthor(Pageable pageable);
     }
 

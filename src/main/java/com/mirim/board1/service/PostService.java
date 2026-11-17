@@ -8,6 +8,8 @@ import com.mirim.board1.exception.ApiException;
 import com.mirim.board1.repository.CommentRepository;
 import com.mirim.board1.repository.MemberRepository;
 import com.mirim.board1.repository.PostRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,8 +84,8 @@ public class PostService {
         postRepository.delete(post);
     }
 
-    public List<PostResponse> getAllPosts(){
-            return toResponses(postRepository.findAllWithAuthor());
+    public Page<PostResponse> getAllPosts(Pageable pageable){
+            return (postRepository.findAllWithAuthor(pageable).map(PostResponse::from));
     }
 
     public long getPostCount(){

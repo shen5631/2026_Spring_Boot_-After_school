@@ -1,0 +1,11 @@
+my:
+  message: hello my name is message.
+spring:
+  datasource:
+    url: jdbc:h2:file:./data/board;AUTO_SERVER=TRUE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate

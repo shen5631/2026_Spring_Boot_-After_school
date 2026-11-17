@@ -1,19 +1,18 @@
 my:
   message: hello my name is message.
 spring:
-  datasource:
-    url: jdbc:h2:file:./data/board;AUTO_SERVER=TRUE
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+  data:
+    web:
+      pageable:
+        max-page-size: 50
+  profiles:
+    active: dev
   h2:
     console:
-      enabled: true
+      enabled: true       #개발용
       path: /h2-console
   jpa:
-    hibernate:
-      ddl-auto: validate
-    show-sql: true
+    show-sql: true      # 개발용
     properties:
       hibernate:
-        format_sql: true
+        format_sql: true #개발용
